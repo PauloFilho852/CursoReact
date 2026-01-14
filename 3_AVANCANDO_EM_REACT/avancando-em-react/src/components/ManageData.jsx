@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 const ManageData = () => {
+    /*A mundaça de estado atualiza a interface */
     const [count, setCount] = useState(0)
     return (
         <div className="card">
