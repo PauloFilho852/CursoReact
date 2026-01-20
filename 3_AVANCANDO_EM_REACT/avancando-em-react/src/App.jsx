@@ -1,8 +1,7 @@
 import './App.css'
 import ReactLogo from './assets/react.svg'
 import ManageData from './components/ManageData.jsx'
-
-import {useState} from 'react'
+import ListRender from './components/ListRender.jsx'
 
 function App() {  
   return (
@@ -16,6 +15,7 @@ function App() {
       <div><img src={ReactLogo} alt="Logo do React" /></div>
       
       <ManageData />
+      <ListRender />
 
     </>
   )
