@@ -2,6 +2,7 @@ import './App.css'
 import ReactLogo from './assets/react.svg'
 import ManageData from './components/ManageData.jsx'
 import ListRender from './components/ListRender.jsx'
+import ConditionalRender from './components/ConditionalRender.jsx'
 
 function App() {  
   return (
@@ -16,6 +17,7 @@ function App() {
       
       <ManageData />
       <ListRender />
+      <ConditionalRender />
 
     </>
   )
