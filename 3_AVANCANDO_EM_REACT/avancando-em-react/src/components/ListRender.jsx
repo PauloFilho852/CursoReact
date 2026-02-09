@@ -8,10 +8,8 @@ const ListRender = () => {
   ]);
 
   const deleteRandomUser = () => {
-    const randomId = Math.floor(Math.random() * 10);
-    
-    setUsers((newUsers) => newUsers.filter((user) => randomId !== user.id)
-    );
+    const randomId = Math.floor(Math.random() * 10);    
+    setUsers((newUsers) => newUsers.filter((user) => randomId !== user.id));
   };
 
   return (
