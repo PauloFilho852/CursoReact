@@ -16,6 +16,7 @@ const ListRender = () => {
     <div>
       <h3>Frameworks Frontend</h3>
       <ul>
+        {/*key é uma propriedade obrigatória para listas de componentes criadas dinamicamente.*/}
         {users.map((user) => <li key={user.id}>{user.name}</li>)}        
       </ul>
         <button onClick={deleteRandomUser}>Delete Random User</button>  
