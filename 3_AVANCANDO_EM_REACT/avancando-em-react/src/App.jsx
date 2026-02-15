@@ -34,7 +34,7 @@ function App() {
   
   return (
     <>
-      <div>
+      <div className = "example">
         <h1>Avançando em React</h1>
       </div>
       {/* imagem na pasta public */}
