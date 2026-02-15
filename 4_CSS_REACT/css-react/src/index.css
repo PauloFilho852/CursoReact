@@ -1,0 +1,11 @@
+/* 
+  GLOBAL ELEMENT STYLE
+  Este seletor afeta TODOS os componentes da aplicação,
+  independentemente do componente React
+*/
+body{
+    background-color: #353535;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}

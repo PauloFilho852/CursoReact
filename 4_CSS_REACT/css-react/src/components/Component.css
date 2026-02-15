@@ -1,0 +1,18 @@
+/* 
+  GLOBAL ELEMENT STYLE
+  Este seletor afeta TODOS os componentes da aplicação,
+  independentemente do componente React
+*/
+h1{
+    color: red;
+    background-color: black;
+}
+
+/*
+  COMPONENT-SCOPED STYLE (por convenção)
+  Usar apenas dentro do componente X (Não é scoped de verdade, mas é uma convenção)
+*/
+.example{
+    color: blue;
+    background-color: yellow;
+}
