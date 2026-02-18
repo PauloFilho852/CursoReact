@@ -1,4 +1,5 @@
 import './App.css'
+import ScopedCss from './components/ScopedCss'
 import Component from './components/Component'
 import { useState } from 'react'
 
@@ -16,11 +17,9 @@ function App() {
    return (
     <>
         <Component />
-        <h1>Estilo vazado de Component</h1>
+        <h1>Seletor global em Component.css vazado para App.jsx</h1>
         <h1 className='example'>Estilo de Component.css usado em App.jsx</h1>
-        <p>Este parágrafo está com estilo global definido em App.css</p>
         
-
         {/* Inline style. Atributos com mais de uma palavra devem ser escritos em camelCase*/}
         <h2 style={{color: 'blue', backgroundColor: 'yellow'}}>Estilo inline</h2>
 
@@ -33,7 +32,9 @@ function App() {
         <h2 className={className}>Estilo com className e useState</h2>
         <button onClick={() => setClassName(prevClassName => prevClassName === 'title' ? 'red-title' : 'title')}>Mudar classe</button>
 
-       
+        <ScopedCss />
+
+        <h3>Este parágrafo está em App.jsx com estilo definido em ScopedCss.module.css como seletor global</h3>
     
      </>
     )

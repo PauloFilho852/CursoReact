@@ -9,7 +9,6 @@ h1{
 }
 
 /*
-  COMPONENT-SCOPED STYLE (por convenção)
   Usar apenas dentro do componente X (Não é scoped de verdade, mas é uma convenção)
 */
 .example{
