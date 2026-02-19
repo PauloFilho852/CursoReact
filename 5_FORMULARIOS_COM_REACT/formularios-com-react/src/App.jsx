@@ -1,8 +1,6 @@
 import MyForm from './components/MyForm'
 import './App.css'
 
-import { useRef } from 'react'
-
 function App() {
   return (
     <>

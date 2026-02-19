@@ -29,19 +29,33 @@ const MyForm = ({user}) => {
         <form onSubmit={handleSubmit}>
             <div >
                 <label htmlFor="name">Nome:</label>
-                <input type="text" id="name" name="name" placeholder='Digite seu nome' onChange={handleName} value={name}/>
+                <input type="text"
+                 id="name" name="name"
+                 placeholder='Digite seu nome'
+                 onChange={handleName}
+                 value={name}/>
             </div>
 
             {/*Label envolvendo input*/}
             <label > 
                 <span>E-mail:</span>
-                <input type="email" name="email" placeholder='Digite seu email' onChange={(e)=>setEmail(e.target.value)} value={email}/>
+                <input type="email"
+                 name="email"
+                 placeholder='Digite seu email'
+                 onChange={(e)=>setEmail(e.target.value)}
+                 value={email}/>
             </label>
             
             <label>
                 <span>Bio:</span>
-                <textarea name="bio" placeholder='Escreva sobre você' onChange={(e)=>setBio(e.target.value)} value={bio}></textarea>
-            </label>    
+                <textarea
+                name="bio"
+                placeholder='Escreva sobre você'
+                onChange={(e)=>setBio(e.target.value)}
+                value={bio}>                    
+                </textarea>
+            </label>
+
             <label>
                 <span>Função:</span>
                 <select name="role" onChange={(e)=>setRole(e.target.value)} value={role}>
