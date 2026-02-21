@@ -1,7 +1,7 @@
 import UseRef from './components/UseRef'
 import UseRefCallBack from './components/UseRefCallBack'
 import UseCallBack from './components/UseCallBack'
-import UseEffec from './components/UseEffect'
+import UseEffect from './components/UseEffect'
 
 import { useState, useCallback, useMemo } from 'react'
 
@@ -23,18 +23,18 @@ function App() {
 
   return (
     <>
-      <UseRefCallBack />
+      <div style={{ border: "1px solid gray", padding: 8 }}>
+          <p>Componente App</p>
+          <p>Contador: {contador}</p>
+          <button onClick={() => setContador(c => c + 1)}>
+          Incrementar contador
+          </button>
+        </div>
+
       <UseRef />
-
-      <p>Contador: {contador}</p>
-
-      <button onClick={() => setContador(c => c + 1)}>
-        Incrementar contador
-      </button>
-
+      <UseRefCallBack />
       <UseCallBack onAdicionar={onAdicionar} config={config} />
-
-      <UseEffec />
+      <UseEffect/>
     </>
   )
 }

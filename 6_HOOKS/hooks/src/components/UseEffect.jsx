@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
-function PerfilUsuario() {
+function UseEffect() {
   const [usuario, setUsuario] = useState(null);
   const [carregando, setCarregando] = useState(true);
+  
+  console.log("UseEffect renderizou");
 
   function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -24,14 +26,15 @@ function PerfilUsuario() {
     }
 
     buscarUsuario();
-  }, []); // executa apenas uma vez
+  }, []); // executa apenas uma vez (na montagem do componente, na primeira renderização)
 
   if (carregando) {
     return <p>Carregando...</p>;
   }
 
   return (
-    <div>
+    <div style={{ border: "1px solid gray", padding: 8 }}>
+      <p>Componente UseEffect</p>
       <h2>Perfil do Usuário</h2>
       <p><strong>Nome:</strong> {usuario.name}</p>
       <p><strong>Email:</strong> {usuario.email}</p>
@@ -39,4 +42,4 @@ function PerfilUsuario() {
   );
 }
 
-export default PerfilUsuario;
+export default UseEffect;
