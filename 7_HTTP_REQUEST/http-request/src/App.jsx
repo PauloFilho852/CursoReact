@@ -7,46 +7,14 @@ import { useFetch } from './hooks/useFetch'
 const url = 'http://localhost:3001/products'
 
 function App() {
-  const [products, setProducts] = useState([])
-
-  const { data:items, loading, error, httpConfig } = useFetch(url)
-
+  const { data, loading, error, post } = useFetch(url)
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
-/*
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch('http://localhost:3001/products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-      }
-    }
-
-    fetchData();
-  }, [])
-*/
 
   //Enviar dados para o backend
   const handleAddProduct = (e) => {
-    e.preventDefault();
-    /*
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, price: parseFloat(price)}),
-      });
-      const newProduct = await response.json();
-      setProducts(prev => [...prev, newProduct]);
-      */
-      
-      httpConfig({ name, price: parseFloat(price)}, 'POST');
-      
+    e.preventDefault();         
+      post({ name, price: parseFloat(price)});      
       setName('');
       setPrice('');
     }
@@ -69,7 +37,7 @@ function App() {
 
         <div >
           <ul>
-            {items && items.map(product => (
+            {data && data.map(product => (
               <li key={product.id}>{product.name} - R$ {product.price}</li>
             ))}
           </ul>
