@@ -1,20 +1,69 @@
 {
-    "products": 
-    [
-        {
-            "id":1,
-            "name": "Camisa Polo",
-            "price": 79.90
-        },
-        {
-            "id":2,
-            "name": "Calça Jeans",
-            "price": 149.90
-        },
-        {
-            "id":3,
-            "name": "Tênis Esportivo",
-            "price": 199.90
-        }
-    ]
+  "products": [
+    {
+      "id": "1",
+      "name": "Camisa Polo",
+      "price": 79.95
+    },
+    {
+      "id": "2",
+      "name": "Calça Jeans",
+      "price": 149.95
+    },
+    {
+      "id": "3",
+      "name": "Tênis Esportivo",
+      "price": 199.95
+    },
+    {
+      "id": "c362",
+      "name": "Calça Moleton",
+      "price": 50.95
+    },
+    {
+      "id": "ff68",
+      "name": "Carteira de Couro",
+      "price": 150.55
+    },
+    {
+      "id": "cf2a",
+      "name": "Sapato de Couro",
+      "price": 390
+    },
+    {
+      "id": "8943",
+      "name": "Camisa Regata",
+      "price": 90.55
+    },
+    {
+      "id": "9cb6",
+      "name": "Algo",
+      "price": 50
+    },
+    {
+      "id": "9d09",
+      "name": "Algo",
+      "price": 50
+    },
+    {
+      "id": "d5f7",
+      "name": "Paulo",
+      "price": 100
+    },
+    {
+      "id": "81c3",
+      "name": "Paulo",
+      "price": 100
+    },
+    {
+      "id": "4762",
+      "name": "paulo",
+      "price": 90
+    },
+    {
+      "id": "6d1a",
+      "name": "paulo",
+      "price": 90
+    }
+  ]
 }
