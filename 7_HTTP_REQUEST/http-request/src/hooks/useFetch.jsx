@@ -4,7 +4,6 @@ export function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [reload, setReload] = useState(0);
 
   const fetchGet = useCallback(async (signal) => {
@@ -34,7 +33,7 @@ export function useFetch(url) {
     fetchGet(controller.signal);
 
     return () => controller.abort();
-    
+
   }, [fetchGet, reload]);
 
   const post = async (body) => {
