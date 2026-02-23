@@ -18,14 +18,6 @@ function App() {
       setName('');
       setPrice('');
     }
-  
-  if (loading) {
-    return <p>Carregando...</p>
-  }
-
-  if (error) {
-    return <p>{error}</p>
-  }
 
   return (
     <>
@@ -36,8 +28,11 @@ function App() {
         </div>
 
         <div >
+          {error && <p>{error}</p>}
+          {loading && <h2 style={{color: 'gray'}}>Carregando...</h2>}
+          {!loading && data && data.length === 0 && <p>Não há produtos cadastrados.</p>}
           <ul>
-            {data && data.map(product => (
+            {!loading && data && data.map(product => (
               <li key={product.id}>{product.name} - R$ {product.price}</li>
             ))}
           </ul>
@@ -69,7 +64,8 @@ function App() {
             />
             </label>
 
-            <button type="submit">Adicionar</button>
+            {!loading && <button type="submit">Adicionar</button>}
+            {loading && <button type="submit" disabled>Adicionando...</button>}
           </form>
 
         </div>

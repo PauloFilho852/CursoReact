@@ -21,14 +21,39 @@
       "price": 50.95
     },
     {
-      "id": "ff68",
-      "name": "Carteira de Couro",
-      "price": 150.55
+      "id": "b1af",
+      "name": "Sapato de Couro",
+      "price": 390.5
     },
     {
-      "id": "cf2a",
-      "name": "Sapato de Couro",
-      "price": 390
+      "id": "b09a",
+      "name": "Carteira de Couro",
+      "price": 300
+    },
+    {
+      "id": "6259",
+      "name": "Camiseta Regata",
+      "price": 90
+    },
+    {
+      "id": "2051",
+      "name": "Toalha de Banho",
+      "price": 100.5
+    },
+    {
+      "id": "ec9f",
+      "name": "Camisola",
+      "price": 100
+    },
+    {
+      "id": "611e",
+      "name": "Calcinha",
+      "price": 99.9
+    },
+    {
+      "id": "1180",
+      "name": "Berbuda Jeans",
+      "price": 150.9
     }
   ]
 }
