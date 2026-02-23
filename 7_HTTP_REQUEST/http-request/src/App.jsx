@@ -7,7 +7,7 @@ import { useFetch } from './hooks/useFetch'
 const url = 'http://localhost:3001/products'
 
 function App() {
-  const { data, loading, error, post } = useFetch(url)
+  const { data, loading, error, post, deleteItem } = useFetch(url)
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
 
@@ -33,7 +33,7 @@ function App() {
           {!loading && data && data.length === 0 && <p>Não há produtos cadastrados.</p>}
           <ul>
             {!loading && data && data.map(product => (
-              <li key={product.id}>{product.name} - R$ {product.price}</li>
+              <li key={product.id}>{product.name} - R$ {product.price} <button onClick={() => deleteItem(product.id)}>Excluir</button></li>
             ))}
           </ul>
         </div>

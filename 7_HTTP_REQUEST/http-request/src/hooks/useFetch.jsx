@@ -58,11 +58,36 @@ export function useFetch(url) {
     }       
   };
 
+  const deleteItem = async (id) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${url}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      // DELETE bem-sucedido → invalida GET
+      setReload((prev) => prev + 1);
+
+    } catch (err) {
+      setError(err.message);
+    }       
+  }
+
   return {
     data,
     loading,
     error,
     post,
+    deleteItem,
     refetch: () => setReload((prev) => prev + 1),
   };
 }
