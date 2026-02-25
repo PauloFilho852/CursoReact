@@ -11,15 +11,15 @@ const SearchForm = () => {
     }
 
   return (
-    <div>
-        <form onSubmit={handleSubmit}>
-            <input 
+    <div style={{padding: "10px", marginTop: "20px", display: "flex", justifyContent: "center"}}>
+        <form onSubmit={handleSubmit} >
+            <input style={{width: "500px", height: "50px", borderRadius: "5px", padding: "10px", fontSize: "16px"}}
                 type="text" 
                 placeholder="Search..." 
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
             />
-            <button type="submit">Search</button>
+            <button type="submit" style={{width: "100px", height: "70px", padding: "10px", borderRadius: "5px", backgroundColor: "#707070", color: "white", border: "none"}}>Search</button>
         </form>
     </div>
   )
