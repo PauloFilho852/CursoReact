@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 
 import About from './pages/About'
 import Home from './pages/Home'
@@ -12,14 +12,11 @@ import SearchForm from './components/SearchForm'
 
 import './App.css'
 
-function App() {
-  
-  
+function App() {  
   return (
     <>
     <div className="app">
-      <h1>React Router</h1>
-      
+      <h1>React Router</h1>      
       <BrowserRouter>
         <Navbar />
         <SearchForm /> {/* Faz o rotemento para a página de busca (Search)*/}
@@ -29,7 +26,8 @@ function App() {
           <Route path='/products/:id' element={<Products />} /> {/*:id é passado como parâmetro para a página de produtos*/}
           <Route path='/products/:id/info' element={<Info />} />
           <Route path='*' element={<NotFound />} /> 
-          <Route path = '/search' element={<Search />} />  {/*pega a query string de SearchForm.jsx e exibe os resultados*/}    
+          <Route path = '/search' element={<Search />} />  {/*pega a query string de SearchForm.jsx e exibe os resultados*/}
+          <Route path='/redirect' element={<Navigate to='/about' />} /> {/*Redireciona para a página About*/}    
         </Routes>
       </BrowserRouter>
     </div>
