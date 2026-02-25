@@ -19,16 +19,17 @@ function App() {
     <>
     <div className="app">
       <h1>React Router</h1>
-      <SearchForm />
+      
       <BrowserRouter>
         <Navbar />
+        <SearchForm /> {/* Faz o rotemento para a página de busca (Search)*/}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} /> 
-          <Route path='/products/:id' element={<Products />} />
+          <Route path='/products/:id' element={<Products />} /> {/*:id é passado como parâmetro para a página de produtos*/}
           <Route path='/products/:id/info' element={<Info />} />
           <Route path='*' element={<NotFound />} /> 
-          <Route path = '/search' element={<Search />} />      
+          <Route path = '/search' element={<Search />} />  {/*pega a query string de SearchForm.jsx e exibe os resultados*/}    
         </Routes>
       </BrowserRouter>
     </div>

@@ -3,9 +3,10 @@ import { useSearchParams } from 'react-router-dom'
 import { useFetch } from '../hooks/useFetch'  
 const Search = () => {
   const [searchParams] = useSearchParams()
-  const url = "https://localhost:3001/products?" + searchParams
+  const query = searchParams.get("q")
+  const url = `http://localhost:3001/products?q=${encodeURIComponent(query)}`
   const {data: products, loading, error} = useFetch(url)
- 
+  
   return (
     <div>
       <h1>Search</h1>

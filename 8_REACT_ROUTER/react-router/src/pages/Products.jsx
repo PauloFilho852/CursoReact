@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom"
 import { useFetch } from "../hooks/useFetch"
-import Info from "../components/Info"
 
 const Products = () => {
   const { id } = useParams()
   const url = `http://localhost:3001/products/${id}`
   const { data: product, loading, error } = useFetch(url)
+  
   return (
     <div>
       <p>ID do Produto: {id}</p>
