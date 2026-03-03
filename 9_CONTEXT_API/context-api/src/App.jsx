@@ -7,11 +7,13 @@ import Home  from "./pages/Home"
 
 import NavBar from "./components/NavBar"
 
+import "./App.css"
+
 
 function App() {
   
   return (
-    <>
+    <div className ='app'>
       <BrowserRouter>
           <NavBar/>
           <Routes>
@@ -20,10 +22,9 @@ function App() {
             <Route path='/pagetwo' element = {<PageTwo/>}></Route>
             <Route path='/pagethree' element = {<PageThree/>}></Route>
           </Routes>
-      </BrowserRouter>
-     
+      </BrowserRouter>   
 
-    </>
+    </div>
   )
 }
 
