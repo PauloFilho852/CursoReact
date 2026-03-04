@@ -1,7 +1,14 @@
+import { useCounterContext } from "../hooks/useCounterContext"
+import ChangeCounter from "../components/ChangeCounter"
 
 const PageTwo = () => {
+const {counter} = useCounterContext()
   return (
-    <div>PageTwo</div>
+    <div>
+      <h1>PAGE TWO</h1>
+      <p>Counter: {counter}</p>
+      <ChangeCounter/>
+    </div>
   )
 }
 
