@@ -1,5 +1,3 @@
-import { useContext } from "react"
-import { CounterContext } from "../context/CounterContext"
 import ChangeCounter from "../components/ChangeCounter"
 import { useTitleColorContext } from "../hooks/useTitleColorContext"
 import { useCounterContext } from "../hooks/useCounterContext"
