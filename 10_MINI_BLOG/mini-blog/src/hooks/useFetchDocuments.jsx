@@ -67,6 +67,7 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
   console.log(documents);
 
   useEffect(() => {
+    console.log("cleanup");
     return () => setCancelled(true);
   }, []);
 
