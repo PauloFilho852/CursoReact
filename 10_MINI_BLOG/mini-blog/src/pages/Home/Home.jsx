@@ -26,7 +26,8 @@ const Home = () => {
     }
   };
 
-  console.log(loading);
+  console.log(loading, "loading");
+  console.log(posts, "posts");
 
   return (
     <div className={styles.home}>
@@ -40,16 +41,17 @@ const Home = () => {
         <button className="btn btn-dark">Pesquisar</button>
       </form>
       <div className="post-list">
-        {loading && <div>Carregando...</div>}
-        {posts && posts.length === 0 && (
+        {loading && <div><h2>Carregando...</h2></div>}
+        {!posts || posts.length === 0 ? (
           <div className={styles.noposts}>
             <p>Não foram encontrados posts</p>
             <Link to="/posts/create" className="btn">
               Criar primeiro post
             </Link>
           </div>
-        )}
-        {posts && posts.map((post) => <PostDetail key={post.id} post={post} />)}
+        ) : (
+          posts.map((post) => <PostDetail key={post.id} post={post} />)
+        )}       
       </div>
     </div>
   );

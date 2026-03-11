@@ -11,14 +11,10 @@ export const useAuthentication = () => {
     // deal with memory leak
     const [cancelled, setCancelled] = useState(false);
 
-    const checkIfIsCancelled = () => {
+    const createUser = async (data) => {
         if(cancelled) {
             return;
         }
-    }
-
-    const createUser = async (data) => {
-        checkIfIsCancelled();
 
         setLoading(true);
         setError(null);
@@ -54,12 +50,17 @@ export const useAuthentication = () => {
     };
 
     const logout = () => {
-        checkIfIsCancelled();
+        if (cancelled) {
+            return;
+        }
+        
         signOut(auth);
     };
 
     const login = async (data) => {
-        checkIfIsCancelled();
+        if (cancelled) {
+            return;
+        }
 
         setLoading(true);
         setError(false);

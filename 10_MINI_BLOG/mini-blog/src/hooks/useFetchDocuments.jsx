@@ -11,58 +11,50 @@ import {
 export const useFetchDocuments = (docCollection, search = null, uid = null) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // deal with memory leak
   const [cancelled, setCancelled] = useState(false);
 
-  useEffect(() => {
-    async function loadData() {
-      if (cancelled) {
-        return;
-      }
+useEffect(() => {
+  if (cancelled) {
+    return;
+  }  
 
-      setLoading(true);
+  const collectionRef = collection(db, docCollection);
 
-      const collectionRef = await collection(db, docCollection);
+  let q;
 
-      try {
-        let q;
+  if (search) {
+    q = query(
+      collectionRef,
+      where("tags", "array-contains", search),
+      orderBy("createdAt", "desc")
+    );
+  } else if (uid) {
+    q = query(
+      collectionRef,
+      where("uid", "==", uid),
+      orderBy("createdAt", "desc")
+    );
+  } else {
+    q = query(collectionRef, orderBy("createdAt", "desc"));
+  }
 
-        if (search) {
-          q = await query(
-            collectionRef,
-            where("tags", "array-contains", search),
-            orderBy("createdAt", "desc")
-          );
-        } else if (uid) {
-          q = await query(
-            collectionRef,
-            where("uid", "==", uid),
-            orderBy("createdAt", "desc")
-          );
-        } else {
-          q = await query(collectionRef, orderBy("createdAt", "desc"));
-        }
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    setDocuments(
+      querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+    );
+  });
 
-        await onSnapshot(q, (querySnapshot) => {
-          setDocuments(
-            querySnapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-          );
-        });
-      } catch (error) {
-        console.log(error);
-        setError(error.message);
-      }
+  setLoading(false);
 
-      setLoading(false);
-    }
+  return () => unsubscribe();
 
-    loadData();
-  }, [docCollection, search, uid, cancelled]);
+}, [docCollection, search, uid]);
 
   console.log(documents);
 
