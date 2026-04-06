@@ -35,7 +35,7 @@ const Dashboard = () => {
         </div>
       )}
 
-      {posts &&
+      {posts && 
         posts.map((post) => (
           <div className={styles.post_row} key={post.id}>
             <p>{post.title}</p>
