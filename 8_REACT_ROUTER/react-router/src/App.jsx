@@ -30,8 +30,7 @@ function App() {
           <Route path='/redirect' element={<Navigate to='/about' />} /> {/*Redireciona para a página About*/}    
         </Routes>
       </BrowserRouter>
-    </div>
-  
+    </div>  
     </>
   )
 }
