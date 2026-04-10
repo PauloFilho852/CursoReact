@@ -1,17 +1,12 @@
 import styles from "./EditPost.module.css";
-
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthValue } from "../../contexts/AuthContext";
 import { useFetchDocument } from "../../hooks/useFetchDocument";
 import { useUpdateDocument } from "../../hooks/useUpdateDocument";
 
 const EditPost = () => {
   const { id } = useParams();
   const { document: post } = useFetchDocument("posts", id);
-
-  console.log(post);
-
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [body, setBody] = useState("");
@@ -29,12 +24,9 @@ const EditPost = () => {
 
       setTags(textTags);
     }
-  }, [post]);
-
-  const { user } = useAuthValue();
+  }, [post]); 
 
   const navigate = useNavigate();
-
   const { updateDocument, response } = useUpdateDocument("posts");
 
   const handleSubmit = (e) => {
@@ -49,16 +41,7 @@ const EditPost = () => {
     }
 
     // create tags array
-    const tagsArray = tags.split(",").map((tag) => tag.trim());
-
-    console.log(tagsArray);
-
-    console.log({
-      title,
-      image,
-      body,
-      tags: tagsArray,
-    });
+    const tagsArray = tags.split(",").map((tag) => tag.trim());   
 
     const data = {
       title,
@@ -66,9 +49,7 @@ const EditPost = () => {
       body,
       tags: tagsArray,
     };
-
-    console.log(post);
-
+   
     updateDocument(id, data);
 
     // redirect to home page
@@ -107,8 +88,8 @@ const EditPost = () => {
             <p className={styles.preview_title}>Preview da imagem atual:</p>
             <img
               className={styles.image_preview}
-              src={post.image}
-              alt={post.title}
+              src={image}
+              alt={title}
             />
             <label>
               <span>Conteúdo:</span>

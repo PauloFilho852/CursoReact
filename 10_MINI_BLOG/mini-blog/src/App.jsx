@@ -28,7 +28,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 function App() {
   const [user, setUser] = useState(undefined);
   const { auth } = useAuthentication();
-
   const loadingUser = user === undefined;
 
   useEffect(() => {
@@ -51,6 +50,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />                 
               <Route path="/posts/create" element={user ? <CreatePost /> : <Navigate to="/login" />} />
+              
               <Route
                 path="/login"
                 element={!user ? <Login /> : <Navigate to="/" />}
@@ -61,13 +61,10 @@ function App() {
                 element={!user ? <Register /> : <Navigate to="/" />}
               />
               <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-              <Route path="/post/:id" element={<Post />} />
-              <Route path="/edit-post/:id" element={user ? <EditPost /> : <Navigate to="/login" />} /> 
-              <Route path="/search" element={<Search />} />           
-
+              <Route path="/posts/:id" element={<Post />} />
+              <Route path="/posts/edit/:id" element={user ? <EditPost /> : <Navigate to="/login" />} /> 
+              <Route path="/search" element={<Search />} />  
             </Routes>
-
-
           </div>
           <Footer />
         </BrowserRouter>
