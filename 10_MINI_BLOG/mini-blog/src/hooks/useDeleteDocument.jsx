@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useReducer, useRef, useEffect, useCallback } from "react";
 import { db } from "../firebase/config";
 import { doc, deleteDoc } from "firebase/firestore";
 
@@ -23,32 +23,35 @@ const deleteReducer = (state, action) => {
 export const useDeleteDocument = (docCollection) => {
   const [response, dispatch] = useReducer(deleteReducer, initialState);
 
-  // deal with memory leak
-  const [cancelled, setCancelled] = useState(false);
+  // useRef não causa re-render, ideal para controle de memory leak
+  const isCancelled = useRef(false);
 
-  const checkCancelBeforeDispatch = (action) => {
-    if (!cancelled) {
+  const safeDispatch = useCallback((action) => {
+    if (!isCancelled.current) {
       dispatch(action);
     }
-  };
+  }, []);
 
-  const deleteDocument = async (id) => {
-    checkCancelBeforeDispatch({ type: "LOADING" });
+  const deleteDocument = useCallback(
+    async (id) => {
+      safeDispatch({ type: "LOADING" });
 
-    try {
-      const deletedDocument = await deleteDoc(doc(db, docCollection, id));
-
-      checkCancelBeforeDispatch({
-        type: "DELETED_DOC",
-        payload: deletedDocument,
-      });
-    } catch (error) {
-      checkCancelBeforeDispatch({ type: "ERROR", payload: error.message });
-    }
-  };
+      try {
+        await deleteDoc(doc(db, docCollection, id));
+        safeDispatch({ type: "DELETED_DOC" });
+      } catch (error) {
+        safeDispatch({ type: "ERROR", payload: error.message });
+      }
+    },
+    [docCollection, safeDispatch]
+  );
 
   useEffect(() => {
-    return () => setCancelled(true);
+    isCancelled.current = false;
+
+    return () => {
+      isCancelled.current = true;
+    };
   }, []);
 
   return { deleteDocument, response };

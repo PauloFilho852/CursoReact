@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db } from "../firebase/config";
 import {
   collection,
@@ -12,18 +12,22 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const isMounted = useRef(true); // 🔒 evita setState após desmontagem
 
   useEffect(() => {
+    isMounted.current = true;
     setLoading(true);
+    setError(null); // 🔄 limpa erros anteriores a cada nova query
 
     const collectionRef = collection(db, docCollection);
 
     let q;
 
-    if (search) {
+    // ✅ cobre tanto null quanto string vazia
+    if (search && search.trim() !== "") {
       q = query(
         collectionRef,
-        where("tags", "array-contains", search),
+        where("tags", "array-contains", search.trim()),
         orderBy("createdAt", "desc")
       );
     } else if (uid) {
@@ -39,6 +43,7 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
     const unsubscribe = onSnapshot(
       q,
       (querySnapshot) => {
+        if (!isMounted.current) return; // 🔒 componente desmontado, ignora
         setDocuments(
           querySnapshot.docs.map((doc) => ({
             id: doc.id,
@@ -48,6 +53,7 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
         setLoading(false);
       },
       (err) => {
+        if (!isMounted.current) return; // 🔒 componente desmontado, ignora
         console.error(err);
         setError(err.message);
         setLoading(false);
@@ -55,7 +61,8 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
     );
 
     return () => {
-      unsubscribe(); // 🔥 cleanup correto (evita memory leak)
+      isMounted.current = false; // 🔒 marca como desmontado
+      unsubscribe(); // 🔥 cancela listener do Firestore
     };
   }, [docCollection, search, uid]);
 

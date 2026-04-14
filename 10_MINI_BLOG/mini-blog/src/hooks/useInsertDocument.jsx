@@ -1,9 +1,9 @@
-import { useState, useEffect, useReducer } from "react";
+import { useReducer, useEffect, useRef, useCallback } from "react";
 import { db } from "../firebase/config";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 const initialState = {
-  loading: null,
+  loading: false,
   error: null,
 };
 
@@ -22,39 +22,38 @@ const insertReducer = (state, action) => {
 
 export const useInsertDocument = (docCollection) => {
   const [response, dispatch] = useReducer(insertReducer, initialState);
-
-  // deal with memory leak
-  const [cancelled, setCancelled] = useState(false);
-
-  const checkCancelBeforeDispatch = (action) => {
-    if (!cancelled) {
-      dispatch(action);
-    }
-  };
-
-  const insertDocument = async (document) => {
-    checkCancelBeforeDispatch({ type: "LOADING" });
-
-    try {
-      const newDocument = { ...document, createdAt: Timestamp.now() };
-
-      const insertedDocument = await addDoc(
-        collection(db, docCollection),
-        newDocument
-      );
-
-      checkCancelBeforeDispatch({
-        type: "INSERTED_DOC",
-        payload: insertedDocument,
-      });
-    } catch (error) {
-      checkCancelBeforeDispatch({ type: "ERROR", payload: error.message });
-    }
-  };
+  const isMounted = useRef(true);
 
   useEffect(() => {
-    return () => setCancelled(true);
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
+
+  const safeDispatch = useCallback((action) => {
+    if (isMounted.current) {
+      dispatch(action);
+    }
+  }, []);
+
+  const insertDocument = useCallback(
+    async (document) => {
+      safeDispatch({ type: "LOADING" });
+
+      try {
+        const newDocument = { ...document, createdAt: Timestamp.now() };
+        const insertedDocument = await addDoc(
+          collection(db, docCollection),
+          newDocument
+        );
+
+        safeDispatch({ type: "INSERTED_DOC", payload: insertedDocument });
+      } catch (error) {
+        safeDispatch({ type: "ERROR", payload: error.message });
+      }
+    },
+    [docCollection, safeDispatch]
+  );
 
   return { insertDocument, response };
 };
