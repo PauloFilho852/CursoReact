@@ -7,7 +7,7 @@ function UseRefCallBack() {
 
   const setInputRef = (name) => (element) => {
     if (element) {
-      inputsRef.current[name] = element;
+      inputsRef.current[name] = element;// Armazena a referência do elemento na ref inputsRef.current usando o nome como chave
     } else {
       delete inputsRef.current[name];
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef, useCallback } from "react";
 import { db } from "../firebase/config";
 import { updateDoc, doc } from "firebase/firestore";
 
@@ -22,40 +22,39 @@ const updateReducer = (state, action) => {
 
 export const useUpdateDocument = (docCollection) => {
   const [response, dispatch] = useReducer(updateReducer, initialState);
+  const isMountedRef = useRef(true);
 
-  // deal with memory leak
-  const [cancelled, setCancelled] = useState(false);
-
-  const checkCancelBeforeDispatch = (action) => {
-    if (!cancelled) {
+  const safeDispatch = useCallback((action) => {
+    if (isMountedRef.current) {
       dispatch(action);
     }
-  };
+  }, []);
 
-  const updateDocument = async (uid, data) => {
-    checkCancelBeforeDispatch({ type: "LOADING" });
+  const updateDocument = useCallback(
+    async (uid, data) => {
+      safeDispatch({ type: "LOADING" });
 
-    try {
-      const docRef = await doc(db, docCollection, uid);
+      try {
+        const docRef = doc(db, docCollection, uid);
+        await updateDoc(docRef, data);
 
-      console.log(docRef);
-
-      const updatedDocument = await updateDoc(docRef, data);
-
-      console.log(updateDocument);
-
-      checkCancelBeforeDispatch({
-        type: "UPDATED_DOC",
-        payload: updatedDocument,
-      });
-    } catch (error) {
-      console.log(error);
-      checkCancelBeforeDispatch({ type: "ERROR", payload: error.message });
-    }
-  };
+        safeDispatch({
+          type: "UPDATED_DOC",
+        });
+      } catch (error) {
+        safeDispatch({
+          type: "ERROR",
+          payload: error.message,
+        });
+      }
+    },
+    [docCollection, safeDispatch]
+  );
 
   useEffect(() => {
-    return () => setCancelled(true);
+    return () => {
+      isMountedRef.current = false;
+    };
   }, []);
 
   return { updateDocument, response };
