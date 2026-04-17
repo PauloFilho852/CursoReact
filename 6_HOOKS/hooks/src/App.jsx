@@ -2,6 +2,7 @@ import UseRef from './components/UseRef'
 import UseRefCallBack from './components/UseRefCallBack'
 import UseCallBack from './components/UseCallBack'
 import UseEffect from './components/UseEffect'
+import UseLayoutEffect from './components/UseLayoutEffect'
 
 import { useState, useCallback, useMemo } from 'react'
 
@@ -29,14 +30,13 @@ function App() {
           <button onClick={() => setContador(c => c + 1)}>
           Incrementar contador
           </button>
-        </div>
-
+      </div>
       <UseRef />
       <UseRefCallBack />
       <UseCallBack onAdicionar={onAdicionar} config={config} />
       <UseEffect/>
+      <UseLayoutEffect />
     </>
   )
 }
-
 export default App

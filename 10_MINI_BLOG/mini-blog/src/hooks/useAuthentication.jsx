@@ -93,10 +93,10 @@ export const useAuthentication = () => {
   };
 
   useEffect(() => {
-    cancelledRef.current = false;
+    cancelledRef.current = false;// Garantir que o valor seja atualizado para false quando o componente for montado
 
     return () => {
-      cancelledRef.current = true;
+      cancelledRef.current = true; // Definir como true quando o componente for desmontado para evitar atualizações de estado
     };
   }, []);
 
