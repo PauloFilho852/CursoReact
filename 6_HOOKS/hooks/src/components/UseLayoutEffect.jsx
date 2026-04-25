@@ -13,7 +13,7 @@ const UseLayoutEffect = () => {
     setUsuario(user);
     console.log("useLayoutEffect executado");   
    
-  }, []);// Executa efeitos colaterais de forma síncrona, bloqueando a renderização até que o efeito seja concluído.
+  }, []);// Executa efeitos colaterais de forma síncrona, bloqueando a renderização até que o efeito seja concluído. Geralmente usado para manipulações de layout ou DOM que precisam ocorrer antes da pintura.
 
   return (
     <div style={{ border: "1px solid gray", padding: 8 }}>
