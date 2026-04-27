@@ -3,12 +3,16 @@ import UseRefCallBack from './components/UseRefCallBack'
 import UseCallBack from './components/UseCallBack'
 import UseEffect from './components/UseEffect'
 import UseLayoutEffect from './components/UseLayoutEffect'
+import UseImperativeHandle from './components/UseImperativeHandle'
+import UseDebugValue from './components/UseDebugValue'
 
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useRef } from 'react'
 
 function App() {
   
-  const [contador, setContador] = useState(0);
+  const [contador, setContador] = useState(1);
+  const childRef = useRef();
+
 
   // Função estável (não muda entre renders). Evitará que o componente filho renderize desnecessariamente.
   const onAdicionar = useCallback(() => {
@@ -36,6 +40,12 @@ function App() {
       <UseCallBack onAdicionar={onAdicionar} config={config} />
       <UseEffect/>
       <UseLayoutEffect />
+
+      // O componente pai pode chamar a função validate do componente filho através da ref, sem precisar conhecer os detalhes internos do componente filho.
+      <UseImperativeHandle ref={childRef}/>
+      <button onClick={() => childRef.current.validate()}>Validar</button>
+
+      <UseDebugValue value={contador} />      
     </>
   )
 }
