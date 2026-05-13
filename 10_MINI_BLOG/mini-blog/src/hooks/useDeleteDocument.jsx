@@ -47,10 +47,10 @@ export const useDeleteDocument = (docCollection) => {
   );
 
   useEffect(() => {
-    isCancelled.current = false;
+    isCancelled.current = false;// Garante que o componente está montado
 
     return () => {
-      isCancelled.current = true;
+      isCancelled.current = true;// Evita que o dispatch seja chamado após o componente ser desmontado
     };
   }, []);
 
